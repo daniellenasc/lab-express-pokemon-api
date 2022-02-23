@@ -27,6 +27,22 @@ app.get("/pokemon/:id", (req, res) => {
 })
 
 //3. GET /search
+app.get("/search", (req, res) => {
+    if (Object.keys(req.query)[0] === "name") {
+      const foundedPokemon = allPokemon.filter((currentPokemon) => {
+        return currentPokemon.name.includes(req.query.name);
+      });
+      return res.status(200).json(foundedPokemon);
+    } else if (Object.keys(req.query)[0] === "types") {
+      const foundedPokemon = allPokemon.filter((currentPokemon) => {
+        return currentPokemon.types.includes(req.query.types);
+      });
+  
+      return res.status(200).json(foundedPokemon);
+    }
+  
+    return res.status(400).json({ msg: " ERROR " });
+  });
 
 //4. POST /pokemon
 app.post("/pokemon", (req, res) => {
